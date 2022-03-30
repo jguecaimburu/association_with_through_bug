@@ -40,7 +40,7 @@ end
 
 class Post < ActiveRecord::Base
   has_many :comments
-  has_many :online_comments, ->{ joins(:source).where(sources: {online: true}) }, class_name: "Comment"
+  has_many :online_comments, ->{ joins(:source).merge(Source.where(online: true)) }, class_name: "Comment"
   has_many :online_users, through: :online_comments, source: :user
 end
 
